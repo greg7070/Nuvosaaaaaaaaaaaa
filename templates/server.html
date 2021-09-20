@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Cloud Transfer</title>
+    <link href="{{ url_for('static', filename='normalize.css' ) }}" rel="stylesheet" type="text/css" >
+    <link href="{{ url_for('static', filename='estilos.css' ) }}" rel="stylesheet" type="text/css" >
+    <script language="javascript" type="text/javascript"> 
+        function closed() { window.open('','_parent',''); window.close(); }
+    </script> 
+
+</head>
+<body>
+    <header>
+        <img class="heder" src="../static/nuvosa.png" style="display: block; margin: auto;">
+        <!-- <a href='/apagar' target="blank">
+            <button class='btn-shutdown  btn-outline-success'><i class="fas fa-shutdown" href="javascript:closed();" ><img src="{{ url_for('static', filename='shutdown.png') }}"></i></button> -->
+        </a>
+    </header>
+    <div class="contenedor">
+        <form class="formulario" action="/upload" method="POST" enctype="multipart/form-data">
+
+            <p>Carga de Archivos</p>
+            
+            <input type="file" name="archivo" required id="archive">
+            <input class="enviar" type="submit" >
+            <!-- <progress max="100" value={{status}}></progress> -->
+
+        </form>
+        <br/><br/>
+        <div class="contenedor-tabla">
+            <table class="tabla">
+                <p>Archivos Cargados</p>
+                <tr>
+                    <th>Nombre archivo</th>
+                    <th>Accion</th>
+                </tr>
+                    {% for name in ficheros %}
+                    <tr>
+                        <td>{{ name }} </td>
+                        <td>
+                            <a href="/download_file/{{name}}" target="blank">
+                                <button class='btn-descarga  btn-outline-success'><i class="fas fa-download"><img src="{{ url_for('static', filename='download.png') }}"></i></button>
+                            </a>
+                            <a href="/remove_file/{{name}}" target="blank2">
+                                <button class='btn-eliminar btn-outline-success'><i class="fas fa-remove"><img src="{{ url_for('static', filename='trash.png') }}"></i></button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <footer>
+        <p class="copy">Copyrigh© - 2021</p>
+        <p class="autores">Gregory Backend - Sergio Frontend - Daryl Tester</p>
+    </footer>
+</body>
+</html>
